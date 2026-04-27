@@ -630,24 +630,6 @@ with tab5:
         
         st.plotly_chart(fig_factory, use_container_width=True)
     
-    # Lead Time Category Distribution
-    st.subheader("Lead Time Category Distribution")
-    
-    category_dist = filtered_df['Lead_Time_Category'].value_counts().sort_index()
-    
-    category_df = category_dist.reset_index()
-    category_df.columns = ['Category', 'Count']
-
-    fig_category = px.bar(
-        category_df,
-    x='Category',
-    y='Count',
-    color='Count',
-    color_continuous_scale='RdYlGn_r'
-)
-    
-    st.plotly_chart(fig_category, use_container_width=True)
-    
     # Time Series
     st.subheader("Lead Time Trend Over Time")
     
