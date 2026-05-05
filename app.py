@@ -53,21 +53,25 @@ def load_data():
     return df
 data = load_data()
 
+from pathlib import Path
+
+BASE_DIR = Path(__file__).parent
+
 @st.cache_data
 def load_metrics():
-    route_metrics = pd.read_csv('metrics/route_metrics.csv')
-    regional_metrics = pd.read_csv('metrics/regional_metrics.csv')
-    state_metrics = pd.read_csv('metrics/state_metrics.csv')
-    mode_metrics = pd.read_csv('metrics/mode_metrics.csv')
-    factory_metrics = pd.read_csv('metrics/factory_metrics.csv')
+    metrics_path = BASE_DIR / "metrics"
 
-    
-    with open(r'C:\Users\Neeraj_Thakur\OneDrive\Documents\Nassau Candy Distributor\summary_stats.txt', 'r') as f:
+    route_metrics = pd.read_csv(metrics_path / "route_metrics.csv")
+    regional_metrics = pd.read_csv(metrics_path / "regional_metrics.csv")
+    state_metrics = pd.read_csv(metrics_path / "state_metrics.csv")
+    mode_metrics = pd.read_csv(metrics_path / "mode_metrics.csv")
+    factory_metrics = pd.read_csv(metrics_path / "factory_metrics.csv")
+
+    # Load text file
+    with open(BASE_DIR / "summary_stats.txt", "r") as f:
         summary_stats = f.read()
 
-    return route_metrics, regional_metrics, state_metrics, mode_metrics, factory_metrics
-route_metrics, regional_metrics, state_metrics, mode_metrics, factory_metrics = load_metrics()
-
+    return route_metrics, regional_metrics, state_metrics, mode_metrics, factory_metrics, summary_stats
 
 # Load all data
 df = load_data()
