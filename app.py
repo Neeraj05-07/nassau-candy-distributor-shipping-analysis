@@ -67,13 +67,18 @@ def load_metrics():
     mode_metrics = pd.read_csv(metrics_path / "mode_metrics.csv")
     factory_metrics = pd.read_csv(metrics_path / "factory_metrics.csv")
 
-    # Load text file
-route_metrics, regional_metrics, state_metrics, mode_metrics, factory_metrics, summary_stats = load_metrics()
+    # Load text file properly
+    with open(BASE_DIR / "summary_stats.txt", "r") as f:
+        summary_stats = f.read()
 
-# Load all data
-df = load_data()
-route_metrics, regional_metrics, state_metrics, mode_metrics, factory_metrics = load_metrics()
-
+    return (
+        route_metrics,
+        regional_metrics,
+        state_metrics,
+        mode_metrics,
+        factory_metrics,
+        summary_stats
+    )
 
 # ============================================================================
 # SIDEBAR - FILTERS
