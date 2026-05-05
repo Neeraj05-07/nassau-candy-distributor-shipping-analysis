@@ -535,40 +535,39 @@ with tab4:
 # ============================================================================
 with tab5:
     st.header("Advanced Analytics")
-    
+
     col1, col2 = st.columns(2)
-    
+
     # Lead Time by Ship Mode and Region
     with col1:
         st.subheader("Heatmap: Lead Time by Ship Mode and Region")
-        
+
         heatmap_data = filtered_df.pivot_table(
             values='Lead Time',
             index='Ship Mode',
             columns='Region',
             aggfunc='mean'
         )
-        
+
         fig_heatmap = px.imshow(
             heatmap_data,
             labels=dict(x="Region", y="Ship Mode", color="Avg Lead Time (days)"),
             color_continuous_scale="RdYlGn_r",
             title="Average Lead Time: Shipping Method vs Region"
         )
-        
         st.plotly_chart(fig_heatmap, use_container_width=True)
-    
+
     # Factory Performance
     with col2:
         st.subheader("Factory Performance")
-        
+
         factory_perf = filtered_df.groupby('Factory').agg({
             'Lead Time': ['mean', 'std', 'count'],
             'Sales': 'sum'
         }).round(2)
         factory_perf.columns = ['Avg LT', 'Std Dev', 'Orders', 'Total Sales']
         factory_perf = factory_perf.sort_values('Avg LT')
-        
+
         fig_factory = px.bar(
             factory_perf.reset_index(),
             x='Factory',
@@ -578,22 +577,19 @@ with tab5:
             hover_data={'Std Dev': ':.2f', 'Orders': True},
             title="Factory Performance - Average Lead Time"
         )
-        
         st.plotly_chart(fig_factory, use_container_width=True)
-    
 
+    # Time Series — full width, no column needed
+    st.subheader("Lead Time Trend Over Time")
 
-    # Time Series
-st.subheader("Lead Time Trend Over Time")
-
-time_series = (
+    time_series = (
         filtered_df.groupby(filtered_df['Order Date'].dt.to_period('W').dt.start_time)['Lead Time']
         .agg(['mean', 'count'])
         .reset_index()
     )
-time_series.columns = ['Week', 'Avg Lead Time', 'Orders']
+    time_series.columns = ['Week', 'Avg Lead Time', 'Orders']
 
-fig_trend = px.line(
+    fig_trend = px.line(
         time_series,
         x='Week',
         y='Avg Lead Time',
@@ -602,13 +598,13 @@ fig_trend = px.line(
         labels={'Week': 'Week Starting', 'Avg Lead Time': 'Average Lead Time (days)'},
         hover_data={'Orders': True}
     )
-fig_trend.update_xaxes(tickformat="%b %d, %Y")
-st.plotly_chart(fig_trend, use_container_width=True)
-    
-    # Efficiency Distribution
-st.subheader("Efficiency Score Distribution")
-    
-fig_efficiency = px.histogram(
+    fig_trend.update_xaxes(tickformat="%b %d, %Y")
+    st.plotly_chart(fig_trend, use_container_width=True)
+
+    # Efficiency Distribution — full width
+    st.subheader("Efficiency Score Distribution")
+
+    fig_efficiency = px.histogram(
         filtered_df,
         x='Efficiency_Score',
         nbins=30,
@@ -616,8 +612,7 @@ fig_efficiency = px.histogram(
         labels={'Efficiency_Score': 'Efficiency Score (0-100)', 'count': 'Number of Orders'},
         color_discrete_sequence=['#636EFA']
     )
-    
-st.plotly_chart(fig_efficiency, use_container_width=True)
+    st.plotly_chart(fig_efficiency, use_container_width=True)
  
 # ============================================================================
 # FOOTER
