@@ -43,31 +43,30 @@ st.markdown("---")
 # ============================================================================
 # LOAD DATA (CACHED FOR PERFORMANCE)
 # ============================================================================
+# ============================================================================
+# LOAD DATA (CACHED FOR PERFORMANCE)
+# ============================================================================
+from pathlib import Path
+
+BASE_DIR = Path(__file__).parent  # defined once, used everywhere
+
 @st.cache_data
 def load_data():
-    # Load the processed data (ensure this file exists from your data processing step)
     df = pd.read_csv(
-        'data/nassau_candy_distributor_cleaned.csv',
+        BASE_DIR / "data" / "nassau_candy_distributor_cleaned.csv",
         parse_dates=['Order Date', 'Ship Date']
     )
     return df
-data = load_data()
-
-from pathlib import Path
-
-BASE_DIR = Path(__file__).parent
 
 @st.cache_data
 def load_metrics():
     metrics_path = BASE_DIR / "metrics"
-
-    route_metrics = pd.read_csv(metrics_path / "route_metrics.csv")
+    route_metrics    = pd.read_csv(metrics_path / "route_metrics.csv")
     regional_metrics = pd.read_csv(metrics_path / "regional_metrics.csv")
-    state_metrics = pd.read_csv(metrics_path / "state_metrics.csv")
-    mode_metrics = pd.read_csv(metrics_path / "mode_metrics.csv")
-    factory_metrics = pd.read_csv(metrics_path / "factory_metrics.csv")
+    state_metrics    = pd.read_csv(metrics_path / "state_metrics.csv")
+    mode_metrics     = pd.read_csv(metrics_path / "mode_metrics.csv")
+    factory_metrics  = pd.read_csv(metrics_path / "factory_metrics.csv")
 
-    # Load text file properly
     with open(BASE_DIR / "summary_stats.txt", "r") as f:
         summary_stats = f.read()
 
@@ -79,6 +78,8 @@ def load_metrics():
         factory_metrics,
         summary_stats
     )
+
+data = load_data()
 
 # ============================================================================
 # SIDEBAR - FILTERS
