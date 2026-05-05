@@ -68,10 +68,7 @@ def load_metrics():
     factory_metrics = pd.read_csv(metrics_path / "factory_metrics.csv")
 
     # Load text file
-    with open(BASE_DIR / "summary_stats.txt", "r") as f:
-        summary_stats = f.read()
-
-    return route_metrics, regional_metrics, state_metrics, mode_metrics, factory_metrics, summary_stats
+route_metrics, regional_metrics, state_metrics, mode_metrics, factory_metrics, summary_stats = load_metrics()
 
 # Load all data
 df = load_data()
