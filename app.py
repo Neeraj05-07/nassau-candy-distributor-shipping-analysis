@@ -46,7 +46,10 @@ st.markdown("---")
 @st.cache_data
 def load_data():
     # Load the processed data (ensure this file exists from your data processing step)
-    df = pd.read_csv(r'C:/Users/Neeraj_Thakur/OneDrive/Documents/Nassau Candy Distributor/data/nassau_candy_distributor_cleaned.csv', parse_dates=['Order Date', 'Ship Date'])
+    df = pd.read_csv( pd.read_csv(
+        'data/nassau_candy_distributor_cleaned.csv',
+        parse_dates=['Order Date', 'Ship Date']
+    )
     return df
 data = load_data()
 
