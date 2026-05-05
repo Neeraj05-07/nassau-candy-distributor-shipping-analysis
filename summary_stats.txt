@@ -1,0 +1,14 @@
+Total Orders: 10194
+Total Routes: 196
+Total States: 59
+Total Regions: 4
+Total Factories: 5
+Avg Lead Time (days): 1320.84
+Median Lead Time (days): 1274.00
+Std Dev Lead Time: 262.44
+Min Lead Time (days): 904
+Max Lead Time (days): 1642
+On-Time Delivery (%): 0.00
+Total Sales: $141783.63
+Total Profit: $93442.80
+Avg Sales per Order: $13.91
