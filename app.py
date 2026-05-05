@@ -55,13 +55,13 @@ data = load_data()
 
 @st.cache_data
 def load_metrics():
-    """Load aggregated metrics"""
-    route_metrics = pd.read_csv('metrics/mode_metrics.csv')
-    regional_metrics = pd.read_csv(r'C:/Users/Neeraj_Thakur\OneDrive\Documents\Nassau Candy Distributor\metrics\regional_metrics.csv')
-    state_metrics = pd.read_csv(r'C:\Users\Neeraj_Thakur\OneDrive\Documents\Nassau Candy Distributor\metrics\state_metrics.csv')
-    mode_metrics = pd.read_csv(r'C:\Users\Neeraj_Thakur\OneDrive\Documents\Nassau Candy Distributor\metrics\mode_metrics.csv')
-    factory_metrics = pd.read_csv(r'C:\Users\Neeraj_Thakur\OneDrive\Documents\Nassau Candy Distributor\metrics\factory_metrics.csv')
+    route_metrics = pd.read_csv('metrics/route_metrics.csv')
+    regional_metrics = pd.read_csv('metrics/regional_metrics.csv')
+    state_metrics = pd.read_csv('metrics/state_metrics.csv')
+    mode_metrics = pd.read_csv('metrics/mode_metrics.csv')
+    factory_metrics = pd.read_csv('metrics/factory_metrics.csv')
 
+    
     with open(r'C:\Users\Neeraj_Thakur\OneDrive\Documents\Nassau Candy Distributor\summary_stats.txt', 'r') as f:
         summary_stats = f.read()
 
