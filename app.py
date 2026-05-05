@@ -43,44 +43,32 @@ st.markdown("---")
 # ============================================================================
 # LOAD DATA (CACHED FOR PERFORMANCE)
 # ============================================================================
-# ============================================================================
-# LOAD DATA (CACHED FOR PERFORMANCE)
-# ============================================================================
-from pathlib import Path
-
-BASE_DIR = Path(__file__).parent  # defined once, used everywhere
-
 @st.cache_data
 def load_data():
-    df = pd.read_csv(
-        BASE_DIR / "data" / "nassau_candy_distributor_cleaned.csv",
-        parse_dates=['Order Date', 'Ship Date']
-    )
+    # Load the processed data (ensure this file exists from your data processing step)
+    df = pd.read_csv(r'C:/Users/Neeraj_Thakur/OneDrive/Documents/Nassau Candy Distributor/data/nassau_candy_distributor_cleaned.csv', parse_dates=['Order Date', 'Ship Date'])
     return df
+data = load_data()
 
 @st.cache_data
 def load_metrics():
-    metrics_path = BASE_DIR / "metrics"
-    route_metrics    = pd.read_csv(metrics_path / "route_metrics.csv")
-    regional_metrics = pd.read_csv(metrics_path / "regional_metrics.csv")
-    state_metrics    = pd.read_csv(metrics_path / "state_metrics.csv")
-    mode_metrics     = pd.read_csv(metrics_path / "mode_metrics.csv")
-    factory_metrics  = pd.read_csv(metrics_path / "factory_metrics.csv")
+    """Load aggregated metrics"""
+    route_metrics = pd.read_csv(r'C:/Users/Neeraj_Thakur/OneDrive/Documents/Nassau Candy Distributor/metrics/route_metrics.csv')
+    regional_metrics = pd.read_csv(r'C:/Users/Neeraj_Thakur\OneDrive\Documents\Nassau Candy Distributor\metrics\regional_metrics.csv')
+    state_metrics = pd.read_csv(r'C:\Users\Neeraj_Thakur\OneDrive\Documents\Nassau Candy Distributor\metrics\state_metrics.csv')
+    mode_metrics = pd.read_csv(r'C:\Users\Neeraj_Thakur\OneDrive\Documents\Nassau Candy Distributor\metrics\mode_metrics.csv')
+    factory_metrics = pd.read_csv(r'C:\Users\Neeraj_Thakur\OneDrive\Documents\Nassau Candy Distributor\metrics\factory_metrics.csv')
 
-    with open(BASE_DIR / "summary_stats.txt", "r") as f:
+    with open(r'C:\Users\Neeraj_Thakur\OneDrive\Documents\Nassau Candy Distributor\summary_stats.txt', 'r') as f:
         summary_stats = f.read()
 
-    return (
-        route_metrics,
-        regional_metrics,
-        state_metrics,
-        mode_metrics,
-        factory_metrics,
-        summary_stats
-    )
+    return route_metrics, regional_metrics, state_metrics, mode_metrics, factory_metrics
+route_metrics, regional_metrics, state_metrics, mode_metrics, factory_metrics = load_metrics()
 
-data = load_data()
 
+# Load all data
+df = load_data()
+route_metrics, regional_metrics, state_metrics, mode_metrics, factory_metrics = load_metrics()
 # ============================================================================
 # SIDEBAR - FILTERS
 # ============================================================================
